@@ -19,6 +19,10 @@ dependencies {
 
     // YAML Parser
     implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
+
+    // json parser
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 }
 
 test {

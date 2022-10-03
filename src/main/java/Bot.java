@@ -68,8 +68,6 @@ public class Bot {
                  */
                 .build();
 
-        twitchClient.getChat().joinChannel("DeltaTecs");
-        twitchClient.getChat().sendMessage("DeltaTecs", "hello there");
         //endregion
     }
 
