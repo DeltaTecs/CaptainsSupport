@@ -1,3 +1,5 @@
+package main;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -61,7 +63,7 @@ public class Configuration {
 
     @Override
     public String toString() {
-        return "Configuration{" +
+        return "main.Configuration{" +
                 "bot=" + bot +
                 ", api=" + api +
                 ", credentials=" + credentials +

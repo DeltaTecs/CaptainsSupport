@@ -1,3 +1,5 @@
+package main;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
@@ -15,7 +17,7 @@ import java.io.InputStream;
 public class Bot {
 
     /**
-     * Holds the Bot Configuration
+     * Holds the main.Bot main.Configuration
      */
     private Configuration configuration;
 
@@ -28,7 +30,8 @@ public class Bot {
      * Constructor
      */
     public Bot() {
-        // Load Configuration
+
+        // Load main.Configuration
         loadConfiguration();
 
         TwitchClientBuilder clientBuilder = TwitchClientBuilder.builder();
@@ -91,7 +94,7 @@ public class Bot {
     }
 
     /**
-     * Load the Configuration
+     * Load the main.Configuration
      */
     private void loadConfiguration() {
         try {
@@ -102,7 +105,7 @@ public class Bot {
             configuration = mapper.readValue(is, Configuration.class);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("Unable to load Configuration ... Exiting.");
+            System.out.println("Unable to load main.Configuration ... Exiting.");
             System.exit(1);
         }
     }
