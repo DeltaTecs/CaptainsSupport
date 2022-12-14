@@ -60,23 +60,23 @@ public class Settings implements Serializable {
             descriptors.put(Settings.class.getDeclaredField("min_lvl_golden_chance_2"), "lvl für zweite golden jackpot erhöhung");
             descriptors.put(Settings.class.getDeclaredField("min_lvl_tts"), "Mindest lvl für !tts");
             descriptors.put(Settings.class.getDeclaredField("max_lvl_tts_scaling"), "Maximales lvl der tts buchstaben freischaltung");
-            descriptors.put(Settings.class.getDeclaredField("slot_rolls_per_lvl"), "");
-            descriptors.put(Settings.class.getDeclaredField("max_lvl_slot_scaling"), "");
-            descriptors.put(Settings.class.getDeclaredField("slot_rolls_added_last_lvls"), "");
-            descriptors.put(Settings.class.getDeclaredField("lvl_per_emblem"), "");
-            descriptors.put(Settings.class.getDeclaredField("cc_per_lvl"), "");
-            descriptors.put(Settings.class.getDeclaredField("tts_chars_per_lvl"), "");
-            descriptors.put(Settings.class.getDeclaredField("min_delay_broadcast"), "");
-            descriptors.put(Settings.class.getDeclaredField("max_delay_broadcast"), "");
-            descriptors.put(Settings.class.getDeclaredField("pirate_loss_factor"), "");
-            descriptors.put(Settings.class.getDeclaredField("pirate_min_win"), "");
-            descriptors.put(Settings.class.getDeclaredField("pirate_max_win"), "");
-            descriptors.put(Settings.class.getDeclaredField("msg_so"), "");
-            descriptors.put(Settings.class.getDeclaredField("link_discord"), "");
-            descriptors.put(Settings.class.getDeclaredField("link_reddit"), "");
-            descriptors.put(Settings.class.getDeclaredField("brause_emote"), "");
-            descriptors.put(Settings.class.getDeclaredField("juwlz_referal"), "");
-            descriptors.put(Settings.class.getDeclaredField("enable_slots_bill"), "");
+            descriptors.put(Settings.class.getDeclaredField("slot_rolls_per_lvl"), "extra slot rolls pro level up");
+            descriptors.put(Settings.class.getDeclaredField("max_lvl_slot_scaling"), "maximales Level für stufe 1 Slot roll increase reward bei level up");
+            descriptors.put(Settings.class.getDeclaredField("slot_rolls_added_last_lvls"), "slot roll stufe 2 increase auf letzten leveln");
+            descriptors.put(Settings.class.getDeclaredField("lvl_per_emblem"), "level distanz zwischen emblem stufen");
+            descriptors.put(Settings.class.getDeclaredField("cc_per_lvl"), "CC reward pro levelup");
+            descriptors.put(Settings.class.getDeclaredField("tts_chars_per_lvl"), "tts maximum buchstaben erhöhung pro level up");
+            descriptors.put(Settings.class.getDeclaredField("min_delay_broadcast"), "mindest zeitlicher abstand zwischen Bot broadcast nachrichten (minuten)");
+            descriptors.put(Settings.class.getDeclaredField("max_delay_broadcast"), "maximaler zeitlicher abstand zwischen Bot broadcast nachrichten (minuten)");
+            descriptors.put(Settings.class.getDeclaredField("pirate_loss_factor"), "Multiplikatofer faktor zum CC vermögen bei verlust bei Piraten event");
+            descriptors.put(Settings.class.getDeclaredField("pirate_min_win"), "Mindest CC win bei Piraten event win");
+            descriptors.put(Settings.class.getDeclaredField("pirate_max_win"), "Maximal CC win bei Piraten event win");
+            descriptors.put(Settings.class.getDeclaredField("msg_so"), "Text für !so befehl, MUSS %s enthalten!");
+            descriptors.put(Settings.class.getDeclaredField("link_discord"), "link für Discord");
+            descriptors.put(Settings.class.getDeclaredField("link_reddit"), "link für Reddit");
+            descriptors.put(Settings.class.getDeclaredField("brause_emote"), "Emote für Brause bums");
+            descriptors.put(Settings.class.getDeclaredField("juwlz_referal"), "Text für !julwz Befehl");
+            descriptors.put(Settings.class.getDeclaredField("enable_slots_bill"), "Ob angezeigt werden soll nach slots von was auf was sich der Kontostantgeändert hat");
 
 
         } catch (NoSuchFieldException e) {

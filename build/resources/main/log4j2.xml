@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="basePath">C:/temp/logs</Property>
+    </Properties>
+
+    <Appenders>
+        <File name="LogToFile" fileName="logs/latest.txt" append="false">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+        </File>
+
+        <!-- Console appender configuration -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="all" additivity="false">
+            <appender-ref ref="LogToFile" />
+            <appender-ref ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>

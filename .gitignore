@@ -1,2 +1,3 @@
 .idea/*
 src/main/resources/config.yaml
+logs/*
