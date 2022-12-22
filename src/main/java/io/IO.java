@@ -9,9 +9,9 @@ public final class IO {
 
 
     private static final String FOLDER = "saved";
-    private static final String FILENAME_SETTINGS = FOLDER + File.separator + "settings.serial";
+    public static final String PATH_SETTINGS = FOLDER + File.separator + "settings.serial";
     public static Settings settings = new Settings();
-    private static Serializer<Settings> serializerSettings  = new Serializer<>(FILENAME_SETTINGS);
+    private static Serializer<Settings> serializerSettings  = new Serializer<>(PATH_SETTINGS);
 
     private IO() {
     }

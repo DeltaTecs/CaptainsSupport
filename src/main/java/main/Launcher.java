@@ -1,7 +1,7 @@
 package main;
 
 import ui.ControlWindow;
-import ui.ErrorHandling;
+import ui.CrashHandler;
 
 public class Launcher {
 
@@ -13,9 +13,9 @@ public class Launcher {
 		try {
 			ControlWindow.create();
 		} catch (Exception e) {
-			System.err.println("oh shit");
 			e.printStackTrace();
-			ErrorHandling.popup(e);
+			CrashHandler.popup(e);
+			System.exit(1);
 		}
 
 		/*

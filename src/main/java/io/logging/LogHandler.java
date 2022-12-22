@@ -17,8 +17,7 @@ public final class LogHandler {
 
     private static final Logger LOGGER = LogManager.getLogger(LogHandler.class.getName());
 
-    private static String LOG_DIR = "logs";
-
+    public static String LOG_DIR = "logs";
 
 
     private LogHandler() {

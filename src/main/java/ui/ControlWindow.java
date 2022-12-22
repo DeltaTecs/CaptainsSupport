@@ -38,7 +38,7 @@ public final class ControlWindow {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setLocation(frame.getLocation().x - WINDOW_WIDTH / 2, frame.getLocation().y - WINDOW_HEIGHT / 2);
-        ErrorHandling.setReferenceFrame(frame);
+        CrashHandler.setReferenceFrame(frame);
 
         LoadingPane loadingPane = new LoadingPane();
         frame.getContentPane().add(loadingPane);
@@ -66,6 +66,8 @@ public final class ControlWindow {
         frame.validate();
         frame.pack();
         frame.repaint();
+
+        throw new RuntimeException("oha du nutte");
     }
 
     private static void onClose() {
