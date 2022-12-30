@@ -110,22 +110,20 @@ public class ConfigPane extends JPanel {
                     }
                 } else if (f.getType().equals(double.class)) {
                     try {
-                        f.set(updated, Double.parseDouble(fields.get(f).getText()));
+                        f.set(updated, Double.parseDouble(fields.get(f).getText().replace(',', '.')));
                     } catch (NumberFormatException e) {
                         return f.getName() + " muss eine Kommazahl sein, nicht " + fields.get(f).getText();
                     }
                 } else if (f.getType().equals(float.class)) {
                     try {
-                        f.set(updated, Float.parseFloat(fields.get(f).getText()));
+                        f.set(updated, Float.parseFloat(fields.get(f).getText().replace(',', '.')));
                     } catch (NumberFormatException e) {
                         return f.getName() + " muss eine Kommazahl sein, nicht " + fields.get(f).getText();
                     }
                 } else if (f.getType().equals(boolean.class)) {
-                    try {
-                        f.set(updated, Boolean.parseBoolean(fields.get(f).getText()));
-                    } catch (NumberFormatException e) {
-                        return f.getName() + " muss true oder false sein, nicht " + fields.get(f).getText();
-                    }
+                    if (!fields.get(f).getText().equalsIgnoreCase("true") && !fields.get(f).getText().equalsIgnoreCase("false"))
+                        return f.getName() + " muss true (an/ja) oder false (nein/aus) sein, nicht " + fields.get(f).getText();
+                    f.set(updated, Boolean.parseBoolean(fields.get(f).getText()));
                 } else
                     throw new RuntimeException("Grütze im Kot");
             }

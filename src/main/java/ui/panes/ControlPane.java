@@ -59,7 +59,13 @@ public class ControlPane extends JPanel {
 
     private void saveChanges() {
         LOGGER.trace("Saving changes...");
-        configPane.saveConfig();
+        String error = configPane.saveConfig();
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(new JFrame(), error, "Speichern nix geklappt", JOptionPane.ERROR_MESSAGE);
+        }
+
+        configPane.refresh();
     }
 
 
