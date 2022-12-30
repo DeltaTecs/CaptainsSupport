@@ -4,6 +4,7 @@ import main.Launcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ui.ControlWindow;
+import ui.RewardBinderWindow;
 import ui.UIException;
 
 import javax.swing.*;
@@ -19,6 +20,8 @@ public class ControlPane extends JPanel {
     private JTextPane textFieldWhatsNew;
 
     private ConfigPane configPane;
+
+    private SoundsPane soundsPane;
 
     public ControlPane() {
         this.setBounds(0, 0, 10000, ControlWindow.WINDOW_HEIGHT);
@@ -50,10 +53,21 @@ public class ControlPane extends JPanel {
         scrollConfig.setBounds(0, 300, ControlWindow.WINDOW_WIDTH, 400);
         scrollConfig.setPreferredSize(new Dimension(ControlWindow.WINDOW_WIDTH, 400));
 
+        // Sound volume sliders
+        soundsPane = new SoundsPane();
+        JScrollPane scrollSounds = new JScrollPane(soundsPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollSounds.getVerticalScrollBar().setUnitIncrement(ControlWindow.SCROLL_SPEED);
+        scrollSounds.setBounds(0, 300, ControlWindow.WINDOW_WIDTH, 400);
+        scrollSounds.setPreferredSize(new Dimension(ControlWindow.WINDOW_WIDTH, 400));
+
+
         this.add(scrollFieldWhatsNew);
         this.add(buttonSave);
+        this.add(scrollSounds);
         this.add(scrollConfig);
         this.repaint();
+
+        new RewardBinderWindow();
     }
 
 
@@ -62,10 +76,13 @@ public class ControlPane extends JPanel {
         String error = configPane.saveConfig();
 
         if (error != null) {
-            JOptionPane.showMessageDialog(new JFrame(), error, "Speichern nix geklappt", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), error, "Also Config speichern ging jetzt nicht", JOptionPane.ERROR_MESSAGE);
         }
 
+        soundsPane.save();
+
         configPane.refresh();
+        soundsPane.refresh();
     }
 
 

@@ -62,6 +62,9 @@ public class ConfigPane extends JPanel {
      * reloads text field values from config
      */
     public void refresh() {
+
+        LOGGER.debug("refreshing config values");
+
         for (Field field : fields.keySet()) {
             try {
                 fields.get(field).setText(field.get(IO.settings).toString());
@@ -80,6 +83,7 @@ public class ConfigPane extends JPanel {
      */
     public String saveConfig() {
 
+        LOGGER.info("Saving Config values");
         Settings updated = IO.settings.clone();
         Settings original = IO.settings;
 
