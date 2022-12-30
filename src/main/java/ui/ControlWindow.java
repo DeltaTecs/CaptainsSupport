@@ -1,5 +1,6 @@
 package ui;
 
+import io.IO;
 import io.logging.LogHandler;
 import main.Launcher;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +18,7 @@ public final class ControlWindow {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 1000;
     public static final Rectangle WINDOW_BOUNDS = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    public static final int SCROLL_SPEED = 16;
 
     private static final Logger LOGGER = LogManager.getLogger(ControlWindow.class.getName());
 
@@ -56,9 +58,12 @@ public final class ControlWindow {
             }
         });
 
-        // not init the rest
+        // no init the rest
+        IO.loadSettings();
+
         ControlPane controlPane = new ControlPane();
-        JScrollPane scrollControl = new JScrollPane(controlPane);
+        JScrollPane scrollControl = new JScrollPane(controlPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollControl.getVerticalScrollBar().setUnitIncrement(ControlWindow.SCROLL_SPEED);
         scrollControl.setBounds(WINDOW_BOUNDS);
         scrollControl.setVisible(true);
         frame.getContentPane().remove(loadingPane);
@@ -66,8 +71,6 @@ public final class ControlWindow {
         frame.validate();
         frame.pack();
         frame.repaint();
-
-        throw new RuntimeException("oha du nutte");
     }
 
     private static void onClose() {

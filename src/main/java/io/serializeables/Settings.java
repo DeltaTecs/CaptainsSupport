@@ -1,5 +1,8 @@
 package io.serializeables;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -7,6 +10,8 @@ import java.util.HashMap;
 public class Settings implements Serializable {
 
     private static final long serialVersionUID = 1001L;
+
+    private static final Logger LOGGER = LogManager.getLogger(Settings.class.getName());
 
     public static HashMap<Field, String> descriptors = new HashMap<>();
 
@@ -152,8 +157,18 @@ public class Settings implements Serializable {
 
 
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return new Settings();
+    public Settings clone() {
+
+        Settings s = new Settings();
+        for (Field field : Settings.class.getFields()) {
+            try {
+                field.set(s, field.get(this));
+            } catch (IllegalAccessException e) {
+                LOGGER.error("Settings clone failed", e);
+                e.printStackTrace();
+            }
+        }
+
+        return s;
     }
 }

@@ -6,7 +6,7 @@ import ui.CrashHandler;
 public class Launcher {
 
 	public static final String VERSION = "2.0 alpha";
-	public static final String LATEST_CHANGES = "nix dega";
+	public static final String LATEST_CHANGES = "alles";
 
 	public static void main(String[] args) {
 
