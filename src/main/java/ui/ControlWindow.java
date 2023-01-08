@@ -1,6 +1,7 @@
 package ui;
 
 import io.IO;
+import io.Images;
 import io.logging.LogHandler;
 import main.Launcher;
 import org.apache.logging.log4j.LogManager;
@@ -59,6 +60,7 @@ public final class ControlWindow {
         });
 
         // no init the rest
+        Images.loadAll();
         IO.loadSettings();
 
         ControlPane controlPane = new ControlPane();

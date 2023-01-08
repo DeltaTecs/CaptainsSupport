@@ -1,6 +1,7 @@
 package ui.panes;
 
 import io.IO;
+import io.Images;
 import io.SoundManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,7 +60,7 @@ public class SoundsPane extends JPanel {
         File[] sounds = new File(SoundManager.SOUNDS_DIR).listFiles();
         for (File file : sounds) {
 
-            final String name = file.getName().replace(".mp3", "");
+            final String name = file.getName().replace(SoundManager.FORMAT, "");
 
             JLabel label = new JLabel(name);
             label.setBounds(10, y, LABEL_WIDTH, 20);
@@ -81,8 +82,14 @@ public class SoundsPane extends JPanel {
             slider.setBounds(LABEL_WIDTH + 60, y, ControlWindow.WINDOW_WIDTH - LABEL_WIDTH - 120, 20);
             slider.addChangeListener(e -> labelValue.setText(slider.getValue() + " %"));
 
-            JButton buttonPlay = new JButton(">");
+            JButton buttonPlay = new JButton("");
             buttonPlay.setBounds(ControlWindow.WINDOW_WIDTH - 55, y, 30, 20);
+            buttonPlay.setIcon(Images.play);
+            buttonPlay.addActionListener(e -> {
+                save();
+                SoundManager.stopAll();
+                SoundManager.play(name);
+            });
 
             sliders.put(file, slider);
             this.add(label);

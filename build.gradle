@@ -32,6 +32,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
+    // mp3 player
+    implementation group: 'javazoom', name: 'jlayer', version: '1.0.1'
+
+
 
 }
 

@@ -24,6 +24,7 @@ public class WriteChannelChatToConsole {
                 event.getUser().getName(),
                 event.getMessage()
         );
+
         event.getTwitchChat().sendMessage(event.getChannel().getName(), event.getMessage());
     }
 
