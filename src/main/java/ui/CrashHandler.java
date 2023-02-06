@@ -32,11 +32,11 @@ public class CrashHandler {
 
         if (choice == 0) {
             // send logs per mail
-            sendReport();
+            sendReport(true);
         }
     }
 
-    private static void sendReport() {
+    public static void sendReport(boolean crash) {
 
         File logLatest = new File(LogHandler.LOG_DIR + File.separator + "latest.txt");
         File logOld = new File(LogHandler.LOG_DIR + File.separator + "old.txt");
@@ -57,7 +57,7 @@ public class CrashHandler {
         }
 
         // try to send error
-        String error = MailSender.sendMail("bach.martin@aol.com", "[BOTCRASH]", msg, new File[]{logLatest, logOld, serialSettings});
+        String error = MailSender.sendMail("bach.martin@aol.com", crash ? "[BOTCRASH]" : "[Infos]", msg, new File[]{logLatest, logOld, serialSettings});
 
         String frameName = "oh shit";
 
@@ -76,13 +76,13 @@ public class CrashHandler {
             if (choice == 1)
                 break;
 
-            error = MailSender.sendMail("bach.martin@aol.com", "[BOTCRASH]", "rip", new File[]{logLatest, logOld, serialSettings});
+            error = MailSender.sendMail("bach.martin@aol.com", crash ? "[BOTCRASH]" : "[Infos]", "rip", new File[]{logLatest, logOld, serialSettings});
         }
 
         if (error == null) {
             JFrame infoFrame = new JFrame();
             infoFrame.setLocationRelativeTo(referenceFrame);
-            JOptionPane.showMessageDialog(infoFrame, "Crash report mail is raus, kannst neustarten :p");
+            JOptionPane.showMessageDialog(infoFrame, crash ? "Crash report mail is raus, kannst neustarten :p" : "Hat geklappt");
         }
 
     }

@@ -57,7 +57,7 @@ public class SoundsPane extends JPanel {
         this.add(sliderMaster);
 
         int y = 40;
-        File[] sounds = new File(SoundManager.SOUNDS_DIR).listFiles();
+        File[] sounds = SoundManager.getAllSounds();
         for (File file : sounds) {
 
             final String name = file.getName().replace(SoundManager.FORMAT, "");
