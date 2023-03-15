@@ -90,6 +90,24 @@ private static final Logger LOGGER = LogManager.getLogger(SoundManager.class.get
         };
     }
 
+    /**
+     * Returns all available soundfiles
+     * @return
+     */
+    public static File[] getAllSounds() {
+        return new File(SoundManager.SOUNDS_DIR).listFiles();
+    }
+
+    /**
+     * Returns a displayable name for a soundfile
+     * @param f
+     * @return
+     */
+    public static String getSoundName(File f) {
+        final String name = f.getName().replace(SoundManager.FORMAT, "");
+        return name;
+    }
+
 
 
 }

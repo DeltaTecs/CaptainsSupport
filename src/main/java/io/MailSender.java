@@ -18,11 +18,11 @@ public abstract class MailSender {
 
     private static final Logger LOGGER = LogManager.getLogger(MailSender.class.getName());
 
-    private static final String SMTP_HOST = "smtp.web.de";
+    private static final String SMTP_HOST = "smtp.mailgun.org";
     private static final String SMTP_PORT = "587";
-    private static final String MAIL_USER = "captainsengineer";
-    private static final String MAIL_PASSWORD = "casimirstinkt";
-    private static final String MAIL_SENDER = "captainsengineer@web.de";
+    private static final String MAIL_USER = " postmaster@sandbox3d65815ab5f547268fb2d0b1c290cb5c.mailgun.org";
+    private static final String MAIL_PASSWORD = "37a134b0054f25a617c712178a072e47-d1a07e51-047e2e87";
+    private static final String MAIL_SENDER = "postmaster@sandbox3d65815ab5f547268fb2d0b1c290cb5c.mailgun.org";
 
     private MailSender() {
     }
