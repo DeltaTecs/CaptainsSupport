@@ -60,6 +60,14 @@ public final class ControlWindow {
         });
 
         // no init the rest
+
+        // Handle crashes in UI
+        SwingUtilities.invokeLater(() -> Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            public void uncaughtException(Thread t, Throwable e) {
+                CrashHandler.popup(e);
+            }
+        }));
+
         Images.loadAll();
         IO.loadSettings();
 

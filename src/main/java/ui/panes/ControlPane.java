@@ -1,5 +1,7 @@
 package ui.panes;
 
+import io.Images;
+import io.SoundManager;
 import io.logging.LogHandler;
 import main.Launcher;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +49,17 @@ public class ControlPane extends JPanel {
         buttonSave.setBounds(10, 10, 150, 30);
         buttonSave.addActionListener(e -> saveChanges());
 
+
+        // Stop sounds button
+        JButton buttonStopSounds = new JButton(Images.stop);
+        buttonStopSounds.setPreferredSize(new Dimension(50, 50));
+        buttonStopSounds.addActionListener(e -> SoundManager.stopAll());
+
+        JPanel panelButtons = new JPanel();
+        panelButtons.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        panelButtons.add(buttonSave);
+        panelButtons.add(buttonStopSounds);
+
         // send logs button
         JButton buttonSendLogs = new JButton("Logs senden");
         buttonSendLogs.addActionListener(e -> CrashHandler.sendReport(false));
@@ -83,6 +96,7 @@ public class ControlPane extends JPanel {
 
 
         this.add(scrollFieldWhatsNew);
+        //this.add(panelButtons);
         this.add(paneButtons);
         this.add(scrollSounds);
         this.add(scrollConfig);

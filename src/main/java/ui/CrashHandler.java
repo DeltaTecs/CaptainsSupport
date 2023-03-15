@@ -21,7 +21,7 @@ public class CrashHandler {
      * Opens error popup that suggest to send log files
      * @param e
      */
-    public static void popup(Exception e) {
+    public static void popup(Throwable e) {
         JFrame errorFrame = new JFrame();
         errorFrame.setLocationRelativeTo(referenceFrame);
 
@@ -37,6 +37,7 @@ public class CrashHandler {
     }
 
     public static void sendReport(boolean crash) {
+
 
         File logLatest = new File(LogHandler.LOG_DIR + File.separator + "latest.txt");
         File logOld = new File(LogHandler.LOG_DIR + File.separator + "old.txt");
