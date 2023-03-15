@@ -2,3 +2,5 @@
 src/main/resources/config.yaml
 logs/*
 bin/*
+.gradle/*
+build/*

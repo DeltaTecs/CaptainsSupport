@@ -1,5 +1,7 @@
 package ui.panes;
 
+import io.Images;
+import io.SoundManager;
 import main.Launcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +42,17 @@ public class ControlPane extends JPanel {
         buttonSave.setPreferredSize(new Dimension(200, 50));
         buttonSave.addActionListener(e -> saveChanges());
 
+        // Stop sounds button
+        JButton buttonStopSounds = new JButton(Images.stop);
+        buttonStopSounds.setPreferredSize(new Dimension(50, 50));
+        buttonStopSounds.addActionListener(e -> SoundManager.stopAll());
+
+        JPanel panelButtons = new JPanel();
+        panelButtons.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        panelButtons.add(buttonSave);
+        panelButtons.add(buttonStopSounds);
+
+
         // Config Values editor
         try {
             configPane = new ConfigPane();
@@ -62,7 +75,7 @@ public class ControlPane extends JPanel {
 
 
         this.add(scrollFieldWhatsNew);
-        this.add(buttonSave);
+        this.add(panelButtons);
         this.add(scrollSounds);
         this.add(scrollConfig);
         this.repaint();
