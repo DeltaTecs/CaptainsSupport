@@ -59,17 +59,10 @@ public final class ControlWindow {
             }
         });
 
-        // no init the rest
-
-        // Handle crashes in UI
-        SwingUtilities.invokeLater(() -> Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            public void uncaughtException(Thread t, Throwable e) {
-                CrashHandler.popup(e);
-            }
-        }));
-
+        // now init the rest
         Images.loadAll();
         IO.loadSettings();
+        IO.loadRewards();
 
         ControlPane controlPane = new ControlPane();
         JScrollPane scrollControl = new JScrollPane(controlPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

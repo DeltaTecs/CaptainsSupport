@@ -1,5 +1,6 @@
 package main;
 
+import io.IO;
 import ui.ControlWindow;
 import ui.CrashHandler;
 
@@ -9,6 +10,8 @@ public class Launcher {
 	public static final String LATEST_CHANGES = "alles";
 
 	public static void main(String[] args) {
+
+		IO.saveRewards();
 
 		try {
 			ControlWindow.create();

@@ -10,15 +10,14 @@ public final class Images {
     private static final ImageIcon PLACE_HOLDER = new ImageIcon();
 
     public static ImageIcon play = PLACE_HOLDER;
-    public static ImageIcon stop = PLACE_HOLDER;
-
+    public static ImageIcon trash = PLACE_HOLDER;
 
     private Images() {}
 
     public static void loadAll() {
 
         play = new ImageIcon(DIR + File.separator + "play.png");
-        stop = new ImageIcon(DIR + File.separator + "stop.png");
+        trash = new ImageIcon(DIR + File.separator + "trash.png");
 
     }
 

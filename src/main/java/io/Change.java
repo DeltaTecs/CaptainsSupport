@@ -1,4 +1,4 @@
-package io.serializeables;
+package io;
 
 import java.lang.reflect.Field;
 

@@ -1,12 +1,13 @@
 package ui;
 
-import io.RewardHandler;
+import features.rewards.RewardHandler;
+import features.rewards.RewardType;
 import io.SoundManager;
-import main.BotError;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.List;
 
 /**
  * JFrame for recording reward ids and assigning actions on reward redeem
@@ -16,6 +17,11 @@ public class RewardBinderWindow extends JFrame {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 300;
 
+    /**
+     * most recent class instance. Used to access ID display text field.
+     */
+    public static RewardBinderWindow instance;
+
     private JPanel contentPane = new JPanel();
     private JToggleButton buttonRecord;
     private JLabel labelID;
@@ -23,6 +29,7 @@ public class RewardBinderWindow extends JFrame {
 
     public RewardBinderWindow() {
         super("Reward Konfigurieren");
+        instance = this;
 
         this.setSize(WIDTH, HEIGHT);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -42,21 +49,21 @@ public class RewardBinderWindow extends JFrame {
         dropdownCategory.addItem("Bot Befehl");
         dropdownCategory.setBounds(10, 110, WIDTH - 40, 20);
 
-        JComboBox<String> dropdownDetail = new JComboBox<>();
+        JComboBox<RewardType> dropdownDetail = new JComboBox<>();
         dropdownDetail.setBounds(10, 140, WIDTH - 40, 20);
         dropdownCategory.addActionListener(a -> {
             if (dropdownCategory.getSelectedItem().equals("Sound abspielen")) {
-                applySoundOptions(dropdownDetail);
+                applyOptions(dropdownDetail, RewardHandler.SOUND_REWARDS);
             } else if (dropdownCategory.getSelectedItem().equals("Aktion triggern")) {
-                applyActionOptions(dropdownDetail);
+                applyOptions(dropdownDetail, RewardHandler.ACTION_REWARDS);
             } else if (dropdownCategory.getSelectedItem().equals("Bot Befehl")) {
-                applyCommandOptions(dropdownDetail);
+                applyOptions(dropdownDetail, RewardHandler.COMMAND_REWARDS);
             } else
                 throw new RuntimeException("reward selection broken amana: " + dropdownCategory.getSelectedItem());
         });
 
         // default details is first from dropdownDetail so "sounds"
-        applySoundOptions(dropdownDetail);
+        applyOptions(dropdownDetail, RewardHandler.SOUND_REWARDS);
 
         buttonRecord = new JToggleButton("Aufnehmen");
         buttonRecord.setBounds(WIDTH - 220, HEIGHT - 95, 200, 50);
@@ -92,44 +99,13 @@ public class RewardBinderWindow extends JFrame {
         }
     }
 
-    /**
-     * Applies all available sound select options to a dropdown menu after clearing it
-     * @param dropdown
-     */
-    private void applySoundOptions(JComboBox<String> dropdown) {
 
+    private void applyOptions(JComboBox<RewardType> dropdown, List<RewardType> rewards) {
         dropdown.removeAllItems();
-        for (File sound : SoundManager.getAllSounds()) {
-            dropdown.addItem(SoundManager.getSoundName(sound));
-        }
-
-        // TODO also add sounds that play different versions
-    }
-
-    /**
-     * Applies all available action select options to a dropdown menu after clearing it
-     * @param dropdown
-     */
-    private void applyActionOptions(JComboBox<String> dropdown) {
-
-        dropdown.removeAllItems();
-        for (String option : RewardHandler.ACTION_REWARDS) {
+        for (RewardType option : rewards) {
             dropdown.addItem(option);
         }
-
     }
 
-    /**
-     * Applies all available command options to a dropdown menu after clearing it
-     * @param dropdown
-     */
-    private void applyCommandOptions(JComboBox<String> dropdown) {
-
-        dropdown.removeAllItems();
-        for (String option : RewardHandler.COMMAND_REWARDS) {
-            dropdown.addItem(option);
-        }
-
-    }
 
 }

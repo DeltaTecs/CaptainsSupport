@@ -3,16 +3,18 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
+import com.github.philippheuer.events4j.reactor.ReactorEventHandler;
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.TwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.ChannelJoinEvent;
+import com.github.twitch4j.pubsub.events.ChannelPointsRedemptionEvent;
 import com.github.twitch4j.pubsub.events.RewardRedeemedEvent;
 import features.ChannelNotificationOnDonation;
 import features.ChannelNotificationOnFollow;
 import features.ChannelNotificationOnSubscription;
 import features.WriteChannelChatToConsole;
-import io.RewardHandler;
+import features.rewards.RewardHandler;
 
 import java.io.InputStream;
 
@@ -50,12 +52,15 @@ public class TwitchConnector {
                 .withClientId(configuration.getApi().get("twitch_client_id"))
                 .withClientSecret(configuration.getApi().get("twitch_client_secret"))
                 .withEnableHelix(true)
+                .withDefaultEventHandler(ReactorEventHandler.class)
                 /*
                  * Chat Module
                  * Joins irc and triggers all chat based events (viewer join/leave/sub/bits/gifted subs/...)
                  */
                 .withChatAccount(credential)
                 .withEnableChat(true)
+                .withEnablePubSub(true)
+                .withEnableTMI(true)
                 /*
                  * GraphQL has a limited support
                  * Don't expect a bunch of features enabling it
@@ -67,7 +72,7 @@ public class TwitchConnector {
                  * It is only here so you can call methods that are not (yet)
                  * implemented in Helix
                  */
-                //.withEnableKraken(true)
+                .withEnableKraken(true)
                 /*
                  * Build the TwitchClient Instance
                  */
@@ -80,19 +85,25 @@ public class TwitchConnector {
      * Method to register all features
      */
     public void registerFeatures() {
-		SimpleEventHandler eventHandler = twitchClient.getEventManager().getEventHandler(SimpleEventHandler.class);
+        ReactorEventHandler eventHandler = twitchClient.getEventManager().getEventHandler(ReactorEventHandler.class);
 
         // Register Event-based features
-        ChannelNotificationOnDonation channelNotificationOnDonation = new ChannelNotificationOnDonation(eventHandler);
+        /*ChannelNotificationOnDonation channelNotificationOnDonation = new ChannelNotificationOnDonation(eventHandler);
         ChannelNotificationOnFollow channelNotificationOnFollow = new ChannelNotificationOnFollow(eventHandler);
         ChannelNotificationOnSubscription channelNotificationOnSubscription = new ChannelNotificationOnSubscription(eventHandler);
-        WriteChannelChatToConsole writeChannelChatToConsole = new WriteChannelChatToConsole(eventHandler);
+        WriteChannelChatToConsole writeChannelChatToConsole = new WriteChannelChatToConsole(eventHandler);*/
+
+        System.out.println("Registering FEATURTESSSS");
 
         eventHandler.onEvent(ChannelJoinEvent.class, event -> {
             System.out.printf("%s joined %s\n", event.getUser(), event.getChannel().getName());
         });
 
-        eventHandler.onEvent(RewardRedeemedEvent.class, RewardHandler::handle);
+        twitchClient.getEventManager().onEvent(ChannelPointsRedemptionEvent.class, event -> {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            RewardHandler.handle(event);
+        });
+        //eventHandler.onEvent(RewardEvent, RewardHandler::handle);
 
     }
 
@@ -119,5 +130,64 @@ public class TwitchConnector {
             twitchClient.getChat().joinChannel(channel);
         }
     }
+
+
+    /*
+
+
+
+                .withClientId(System.getenv("CLIENT_ID"))
+                .withClientSecret(System.getenv("CLIENT_SECRET"))
+                .withEnableHelix(true)
+                .withEnableKraken(true)
+                .withEnablePubSub(true)
+                .withEnableTMI(true)
+                .withEnableV5(true)
+                .withEnableChat(true)
+                .withEnableClips(true)
+                .withEnableUsers(true)
+                .withEnableBits(true)
+                .withEnableEntitlements(true)
+                .withEnableExtensions(true)
+                .withEnableHypeTrain(true)
+                .withEnableModeration(true)
+                .withEnableStreams(true)
+                .withEnableSubscriptions(true)
+                .withEnableTeams(true)
+                .withEnableVideos(true)
+                .withEnableWebhooks(true)
+                .withEnableWhispers(true)
+                .withEnableAnalytics(true)
+                .withEnableChatSettings(true)
+                .withEnableChannelFeed(true)
+                .withEnableChannelPins(true)
+                .withEnableChannelPoints(true)
+                .withEnableChatModeration(true)
+                .withEnableChatRooms(true)
+                .withEnableCommunities(true)
+                .withEnableCommunityModeration(true)
+                .withEnableCommunityStreams(true)
+                .withEnableCommunityUsers(true)
+                .withEnableFollows(true)
+                .withEnableGames(true)
+                .withEnableIngests(true)
+                .withEnableSearch(true)
+                .withEnableStreamMarkers(true)
+                .withEnableStreamsMetadata(true)
+                .withEnableStreamsTags(true)
+                .withEnableStreamsFilter(true)
+                .withEnableStreamsCommercials(true)
+                .withEnableStreamsTranscoding(true)
+                .withEnableStreamsBroadcasterTypes(true)
+                .withEnableStreamsType(true)
+                .withEnableStreamsLanguage(true)
+                .withEnableStreamsUserFollows(true)
+                .withEnableStreamsUserFollowsEdit(true)
+                .withEnableStreamsUserFollowsDelete(true)
+                .withEnableStreamsUserFollowsRead(true)
+                .withEnableStreamsUserFollowsWrite(true)
+                .withEnableStreamsUserFollowsEditOwn(true)
+
+     */
 
 }
