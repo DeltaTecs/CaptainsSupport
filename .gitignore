@@ -1,6 +1,9 @@
 .idea/*
-src/main/resources/config.yaml
+*/config.yaml
+saved/*
 logs/*
 bin/*
 .gradle/*
 build/*
+out/*
+src/main/resources/config.yaml

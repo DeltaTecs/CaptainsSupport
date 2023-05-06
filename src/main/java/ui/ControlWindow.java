@@ -4,6 +4,7 @@ import io.IO;
 import io.Images;
 import io.logging.LogHandler;
 import main.Launcher;
+import main.TwitchConnector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ui.panes.ControlPane;
@@ -25,6 +26,8 @@ public final class ControlWindow {
 
     private static JFrame frame = null;
 
+    private static LoadingPane loadingPane = new LoadingPane();
+
 
     private ControlWindow() {
     }
@@ -41,11 +44,12 @@ public final class ControlWindow {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setLocation(frame.getLocation().x - WINDOW_WIDTH / 2, frame.getLocation().y - WINDOW_HEIGHT / 2);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         CrashHandler.setReferenceFrame(frame);
 
-        LoadingPane loadingPane = new LoadingPane();
         frame.getContentPane().add(loadingPane);
         frame.getContentPane().setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        loadingPane.setText("Twitch Berechtigungen werden eingeangelt. Im Browser auf Annehmen drücken. Wenn du abgelehnt hast oder den Browser geschlossen hast musst du den Bot neustarten kekw");
 
         frame.validate();
         frame.pack();
@@ -59,11 +63,25 @@ public final class ControlWindow {
             }
         });
 
+        // Start Thread to wait for OAuth token and open the main menu
+        new Thread(() -> {
+            while (!TwitchConnector.oauthFinished) {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            finalizeInitialization();
+        }).start();
+
         // now init the rest
         Images.loadAll();
         IO.loadSettings();
         IO.loadRewards();
+    }
 
+    private static void finalizeInitialization() {
         ControlPane controlPane = new ControlPane();
         JScrollPane scrollControl = new JScrollPane(controlPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollControl.getVerticalScrollBar().setUnitIncrement(ControlWindow.SCROLL_SPEED);

@@ -19,7 +19,11 @@ public class Configuration {
 
     private Map<String, String> credentials;
 
-    private List<String> channels;
+    private Map<String, String> mail;
+
+    private String channel;
+
+    private String chanelId;
 
     public Boolean getDebug() {
         return debug;
@@ -53,12 +57,29 @@ public class Configuration {
         this.credentials = credentials;
     }
 
-    public List<String> getChannels() {
-        return channels;
+    public Map<String, String> getMail() {
+        return mail;
     }
 
-    public void setChannels(List<String> channels) {
-        this.channels = channels;
+    public void setMail(Map<String, String> mail) {
+        this.mail = mail;
+    }
+
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public String getChanelId() {
+        return chanelId;
+    }
+
+    public void setChanelId(String chanelId) {
+        this.chanelId = chanelId;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
     @Override
@@ -67,7 +88,7 @@ public class Configuration {
                 "bot=" + bot +
                 ", api=" + api +
                 ", credentials=" + credentials +
-                ", channels=" + channels +
+                ", channel=" + channel +
                 '}';
     }
 }

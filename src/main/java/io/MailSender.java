@@ -1,5 +1,6 @@
 package io;
 
+import main.TwitchConnector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +18,6 @@ import java.util.Properties;
 public abstract class MailSender {
 
     private static final Logger LOGGER = LogManager.getLogger(MailSender.class.getName());
-
-    private static final String SMTP_HOST = "smtp.mailgun.org";
-    private static final String SMTP_PORT = "587";
-    private static final String MAIL_USER = " postmaster@sandbox3d65815ab5f547268fb2d0b1c290cb5c.mailgun.org";
-    private static final String MAIL_PASSWORD = "37a134b0054f25a617c712178a072e47-d1a07e51-047e2e87";
-    private static final String MAIL_SENDER = "postmaster@sandbox3d65815ab5f547268fb2d0b1c290cb5c.mailgun.org";
 
     private MailSender() {
     }
@@ -42,20 +37,20 @@ public abstract class MailSender {
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", true);
         prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", SMTP_HOST);
-        prop.put("mail.smtp.port", SMTP_PORT);
-        prop.put("mail.smtp.ssl.trust", SMTP_HOST);
+        prop.put("mail.smtp.host", TwitchConnector.getConfiguration().getMail().get("host"));
+        prop.put("mail.smtp.port", TwitchConnector.getConfiguration().getMail().get("port"));
+        prop.put("mail.smtp.ssl.trust", TwitchConnector.getConfiguration().getMail().get("host"));
 
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(MAIL_USER, MAIL_PASSWORD);
+                return new PasswordAuthentication(TwitchConnector.getConfiguration().getMail().get("user"), TwitchConnector.getConfiguration().getMail().get("password"));
             }
         });
 
         try {
             Message content = new MimeMessage(session);
-            content.setFrom(new InternetAddress(MAIL_SENDER));
+            content.setFrom(new InternetAddress(TwitchConnector.getConfiguration().getMail().get("sender")));
             content.setRecipients(
                     Message.RecipientType.TO, InternetAddress.parse(recepient));
             content.setSubject(subject);

@@ -19,7 +19,7 @@ private static final Logger LOGGER = LogManager.getLogger(SoundManager.class.get
     private static List<Clip> running = new ArrayList<>();
 
     /**
-     * Plays a sound, adds .mp3 to the end of the name and plays the file in the sounds directory
+     * Plays a sound, adds .wav to the end of the name and plays the file in the sounds directory
      * @param sound
      */
     public static void play(String sound) {
@@ -39,7 +39,7 @@ private static final Logger LOGGER = LogManager.getLogger(SoundManager.class.get
     }
 
     /**
-     * Plays sound with specified linear volume multiplikator
+     * Plays sound with specified linear volume multiplicator
      * @param sound
      * @param volume
      */

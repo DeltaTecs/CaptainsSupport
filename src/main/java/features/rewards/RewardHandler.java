@@ -1,9 +1,6 @@
 package features.rewards;
 
 import com.github.twitch4j.pubsub.events.ChannelPointsRedemptionEvent;
-import com.github.twitch4j.pubsub.events.RewardRedeemedEvent;
-import main.BotError;
-import main.BotWarning;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,7 +44,7 @@ public class RewardHandler {
     }
 
     public static void handle(ChannelPointsRedemptionEvent redeemedEvent) {
-        System.out.println("daheck");
+        // ### DEBUG
         LOGGER.debug("Redeem Event captured: id=" + redeemedEvent.getEventId() + ", redemption-id=" + redeemedEvent.getRedemption().getId() + ", userId=" + redeemedEvent.getRedemption().getUser().getId() + ", userName=" + redeemedEvent.getRedemption().getUser().getDisplayName() + ", userLogin=" + redeemedEvent.getRedemption().getUser().getLogin() + ", userInput=" + redeemedEvent.getRedemption().getUserInput() + ", rewardTitle=" + redeemedEvent.getRedemption().getReward().getTitle());
     }
 }
